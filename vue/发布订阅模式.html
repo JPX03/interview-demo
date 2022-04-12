@@ -36,22 +36,37 @@
                     console.log('全部删除')
                     return;
                 }
-                this._events[eventName] = this._events[eventName].filter(item => item !== callback);
+                this._events[eventName] = this._events[eventName].filter(item => item !== callback && item.init != callback);
             }
 
-            
+            once(eventName, callback) {
+                const newCallback = (...args) => {
+                    callback(...args);
+                    this.off(eventName, newCallback);
+                }
+                newCallback.init = callback;
+                this.on(eventName, newCallback);
+            }
         }
 
         let eventEmitter = new EventEmitter();
-        function fn1(){
+        function fn1() {
             console.log('click哈哈')
         }
+        function fn2() {
+            console.log('move哈哈')
+        }
         eventEmitter.on('click', fn1);
-        console.log(eventEmitter);
+        console.log('订阅click之后', eventEmitter);
         eventEmitter.emit('click');
-        eventEmitter.off('click',fn1);
-        console.log(eventEmitter);
+        console.log('触发click之后', eventEmitter);
+        eventEmitter.off('click', fn1);
+        console.log('取消订阅click之后', eventEmitter);
         eventEmitter.emit('click');
+        eventEmitter.once('move', fn2)
+        console.log('订阅一次move之后', eventEmitter);
+        eventEmitter.emit('move');
+        console.log('触发move之后', eventEmitter);
     </script>
 </body>
 
