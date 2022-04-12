@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简单双向绑定</title>
+</head>
+
+<body>
+    <input id="inp">
+    <div id="box">初始化</div>
+    <script>
+        let inp = document.getElementById('inp');
+        let box = document.getElementById('box');
+        let value = {
+            name: ''
+        }
+
+        Object.defineProperty(value, 'name', {
+            get: () => {
+                return name;
+            },
+            set: (val) => {
+                name = val;
+                box.innerHTML = val;
+                if (inp.value != val) {
+                    inp.value = val;
+                }
+            }
+        })
+
+        inp.addEventListener('input', (e) => {
+            value.name = e.target.value;
+        })
+
+        value.name = '初始化'
+    </script>
+</body>
+
+</html>

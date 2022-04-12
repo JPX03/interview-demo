@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深拷贝</title>
+</head>
+
+<body>
+    <script>
+        //一层的话可以用 Object.assign
+        let obj = {
+            a: 1,
+        }
+        let obj1 = Object.assign({}, obj);
+        obj1.a = 2;
+        console.log(obj);
+        console.log(obj1);
+
+        //JSON
+        obj = {
+            a: 1,
+            b: {
+                c: 2,
+            }
+        }
+        let obj2 = JSON.parse(JSON.stringify(obj));
+        obj2.a = 2;
+        obj2.b.c = 3;
+        console.log(obj);
+        console.log(obj2);
+
+        //递归
+        function deepClone1(obj) {
+            let temp = {};
+            for (let item in obj) {
+                if (obj[item] === temp) {
+                    continue;
+                }
+                if (typeof (obj[item]) === 'object') {
+                    temp[item] = obj[item].constructor === Array ? [] : {};
+                    deepClone1(obj[item]);
+                } else {
+                    temp[item] = obj[item];
+                }
+            }
+            return temp;
+        }
+        let obj3 = deepClone1(obj);
+        obj3.a = 2;
+        obj3.b.c = 3;
+        console.log(obj);
+        console.log(obj3);
+
+        //object.create
+        function deepClone2(obj) {
+            let temp = {};
+            for (const item in obj) {
+                if (obj[item] === temp) {
+                    continue;
+                }
+                if (typeof (obj[item]) === 'object') {
+                    temp[item] = obj[item].constructor === Array ? [] : Object.create(obj[item]);
+                    deepClone2(obj[item]);
+                } else {
+                    temp[item] = obj[item];
+                }
+            }
+            return temp;
+        }
+        let obj4 = deepClone2(obj);
+        obj4.a = 2;
+        obj4.b.c = 3;
+        console.log(obj);
+        console.log(obj4);
+
+        //lodash库中的cloneDeep函数
+
+        let bbb = 2;
+        function aa() {
+            console.log(this)
+            console.log(this.bbb);
+        }
+        console.log(window.global.bbb)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>setTimeout实现setInterval</title>
+</head>
+
+<body>
+    <script>
+        let i = 0;
+        function foo() {
+            let timeout = setTimeout(() => {
+                console.log(i);
+                i++;
+                if (i == 10) {
+                    clearTimeout(timeout);
+                } else {
+                    foo();
+                }
+            }, 500);
+        }
+        foo();
+    </script>
+</body>
+
+</html>

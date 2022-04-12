@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+</head>
+
+<body>
+    <script>
+        //1
+        var a = function () { this.b = 3 };
+        var c = new a();
+        a.prototype.b = 9;
+        var b = 7;
+        a();
+        // 给出下面的执行结果
+        console.log(b); //3
+        console.log(c.b); //3
+        console.log('*********************');
+
+        //2
+        var a = function () { this.name = 3; }
+        var c = new a();
+        a.prototype.b = 9;
+        console.log(c.b);
+        console.log('*********************');
+
+        //3
+        setTimeout(function () {
+            console.log("setTimeout");
+        })
+        new Promise(function (resolve) {
+            console.log("promise");
+            for (var i = 0; i < 10000; i++) {
+                if (i === 10) {
+                    console.log("for");
+                }
+                if (i === 9999) {
+                    resolve("resolve");
+                }
+            }
+        }).then(function (val) {
+            console.log(val)
+        });
+        console.log("console");
+    </script>
+</body>
+
+</html>

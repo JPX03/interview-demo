@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发布订阅模式</title>
+</head>
+
+<body>
+    <script>
+        class EventEmitter {
+            constructor() {
+                this._events = {};
+            }
+
+            on(eventName, callback) {
+                if (!this._events[eventName]) {
+                    this._events[eventName] = [];
+                }
+                this._events[eventName].push(callback);
+            }
+
+            emit(eventName, ...args) {
+                if (!this._events[eventName]) { return }
+                this._events[eventName].forEach(item => item(...args));
+            }
+
+            off(eventName, callback) {
+                if (!this._events[eventName]) {
+                    console.log('没有订阅此类时间')
+                    return;
+                }
+                if (!callback) {
+                    delete this._events[eventName];
+                    console.log('全部删除')
+                    return;
+                }
+                this._events[eventName] = this._events[eventName].filter(item => item !== callback);
+            }
+
+            
+        }
+
+        let eventEmitter = new EventEmitter();
+        function fn1(){
+            console.log('click哈哈')
+        }
+        eventEmitter.on('click', fn1);
+        console.log(eventEmitter);
+        eventEmitter.emit('click');
+        eventEmitter.off('click',fn1);
+        console.log(eventEmitter);
+        eventEmitter.emit('click');
+    </script>
+</body>
+
+</html>

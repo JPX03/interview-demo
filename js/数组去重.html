@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组去重</title>
+</head>
+
+<body>
+    <script>
+        let arr = [1, 1, 2, 2, 3, 3, 3, 4, 5, 6, 7, 7]
+
+        //splice
+        function helper1(arr) {
+            for (let i = 0; i < arr.length - 1; i++) {
+                for (let j = i + 1; j < arr.length; j++) {
+                    if (arr[j] === arr[i]) {
+                        arr.splice(j, 1);
+                        j--;
+                    }
+                }
+            }
+            return arr;
+        }
+
+        //indexof
+        function helper2(arr) {
+            let temp = [];
+            for (let i = 0; i < arr.length; i++) {
+                if (temp.indexOf(arr[i]) === -1) {
+                    temp.push(arr[i]);
+                }
+            }
+            return temp;
+        }
+
+        //set去重
+        function helper3(arr) {
+            return Array.from(new Set(arr));
+        }
+        console.log(helper3(arr));
+    </script>
+</body>
+
+</html>

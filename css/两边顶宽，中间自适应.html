@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>两边顶宽，中间自适应</title>
+    <style>
+        #container1 {
+            width: 100%;
+            height: 300px;
+            display: flex;
+        }
+
+        #left1 {
+            width: 300px;
+            background-color: aquamarine;
+        }
+
+        #center1 {
+            flex: 1;
+            background-color: antiquewhite;
+        }
+
+        #right1 {
+            width: 300px;
+            background-color: darksalmon;
+        }
+
+        #container2 {
+            width: 100%;
+            height: 300px;
+            display: table;
+        }
+
+        #left2 {
+            display: table-cell;
+            width: 300px;
+            background-color: thistle;
+        }
+
+        #center2 {
+            display: table-cell;
+            background-color: tan;
+        }
+
+        #right2 {
+            display: table-cell;
+            width: 300px;
+            background-color: limegreen;
+        }
+    </style>
+</head>
+
+<body>
+    <!--flex实现-->
+    <div id="container1">
+        <div id="left1">左</div>
+        <div id="center1">中</div>
+        <div id="right1">右</div>
+    </div>
+    <!--table实现-->
+    <div id="container2">
+        <div id="left2">左</div>
+        <div id="center2">中</div>
+        <div id="right2">右</div>
+    </div>
+</body>
+
+</html>
