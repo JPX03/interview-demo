@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>获取url参数</title>
+</head>
+
+<body>
+    <script>
+        let URL = "http://www.baidu.com?name=张三&age=25&sex=男&wife=小红"
+        function getUrlParams(url) {
+            let obj = {};
+            let paramsArr = url.split('?')[1].split('&');
+            console.log(paramsArr)
+            for (let item of paramsArr) {
+                item = item.split('=');
+                obj[item[0]] = item[1];
+            }
+            return obj;
+        }
+        console.log(getUrlParams(URL));
+    </script>
+</body>
+
+</html>

@@ -44,7 +44,7 @@
                     callback(...args);
                     this.off(eventName, newCallback);
                 }
-                newCallback.init = callback;
+                newCallback.flag = callback;
                 this.on(eventName, newCallback);
             }
         }

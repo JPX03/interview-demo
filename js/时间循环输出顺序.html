@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<div id="container">
+    container1
+    <div id="box1"></div>
+    <div id="box2">2</div>
+</div>
+
+<body>
+    <script>
+        console.log(1);
+        async function a1(){
+            console.log(2);
+            await console.log(3);
+            setTimeout(()=>{
+                console.log(4);
+            },0)
+        }
+        setTimeout(function(){
+            console.log(5)
+        },0);
+        a1();
+        new Promise(function(resolve){
+            console.log(6);
+            resolve();
+        }).then(function(){
+            console.log(7);
+        })
+        console.log(8);
+
+        //1，2，3，6，8，7，5，4
+        console.log('****************************************')
+        console.log(1);
+        async function a1(){
+            console.log(2);
+            await console.log(3);
+            setTimeout(()=>{
+                console.log(4);
+            },10)
+        }
+        setTimeout(function(){
+            console.log(5)
+        },0);
+        a1();
+        new Promise(function(resolve){
+            console.log(6);
+            resolve();
+        }).then(function(){
+            console.log(7);
+        })
+        console.log(8);
+        //1，2，3，6，8，7，4，5
+    </script>
+</body>
+
+</html>
