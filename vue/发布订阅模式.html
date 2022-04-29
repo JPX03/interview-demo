@@ -25,7 +25,7 @@
                 if (!this._events[eventName]) { return }
                 this._events[eventName].forEach(item => item(...args));
             }
-
+-------
             off(eventName, callback) {
                 if (!this._events[eventName]) {
                     console.log('没有订阅此类时间')

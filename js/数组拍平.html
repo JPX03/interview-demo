@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+ 
 
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,7 @@
 
 <body>
     <script>
-        let arr = [1, 2, [3], [4, 5], [6, 7, 8]];
+        let arr = [1, [2], [3, [4]], [5, [6, [7]]]];
         function help1(arr) {
             let temp = [];
             for (const item of arr) {
@@ -22,14 +22,31 @@
             }
             return temp;
         }
-        console.log(help1(arr))
+        console.log(help1(arr), '拍平');
 
         function help2(arr) {
             return arr.reduce((pre, cur) => {
                 return pre.concat(!Array.isArray(cur) ? cur : help2(cur))
             }, [])
         }
-        console.log(help2(arr));
+        console.log(help2(arr), '拍平');
+
+        //固定深度拍平数组
+        function helper(arr, k) {
+            let temp = [];
+            if (k == 0) {
+                return arr;
+            }
+            for (const item of arr) {
+                if (item.constructor === Array) {
+                    temp = temp.concat(helper(item, k - 1));
+                } else {
+                    temp.push(item);
+                }
+            }
+            return temp;
+        }
+        console.log(helper(arr, 1), '固定深度拍平');
     </script>
 </body>
 

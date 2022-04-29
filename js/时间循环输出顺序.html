@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+ 
 
 <head>
     <meta charset="UTF-8">
@@ -15,48 +15,88 @@
 
 <body>
     <script>
-        console.log(1);
-        async function a1(){
-            console.log(2);
-            await console.log(3);
-            setTimeout(()=>{
-                console.log(4);
-            },0)
-        }
-        setTimeout(function(){
-            console.log(5)
-        },0);
-        a1();
-        new Promise(function(resolve){
-            console.log(6);
-            resolve();
-        }).then(function(){
-            console.log(7);
-        })
-        console.log(8);
+        //1236475
+        // console.log(1);
+        // async function a1() {
+        //     console.log(2);
+        //     await console.log(3);
+        //     console.log(4);
+        // }
+        // a1();
+        // setTimeout(function () {
+        //     console.log(5)
+        // }, 0);
+        // new Promise(function (resolve) {
+        //     console.log(6);
+        //     resolve();
+        // }).then(function () {
+        //     console.log(7);
+        // })
+        // console.log("*******************")
 
-        //1，2，3，6，8，7，5，4
-        console.log('****************************************')
-        console.log(1);
-        async function a1(){
-            console.log(2);
-            await console.log(3);
-            setTimeout(()=>{
-                console.log(4);
-            },10)
-        }
-        setTimeout(function(){
-            console.log(5)
-        },0);
-        a1();
-        new Promise(function(resolve){
-            console.log(6);
-            resolve();
-        }).then(function(){
-            console.log(7);
-        })
-        console.log(8);
-        //1，2，3，6，8，7，4，5
+        //1236754
+        // console.log(1);
+        // async function a1() {
+        //     console.log(2);
+        //     await console.log(3);
+        //     setTimeout(()=>{
+        //         console.log(4);
+        //     })
+        // }
+        // a1();
+        // setTimeout(function () {
+        //     console.log(5)
+        // }, 0);
+        // new Promise(function (resolve) {
+        //     console.log(6);
+        //     resolve();
+        // }).then(function () {
+        //     console.log(7);
+        // })
+        // console.log("*******************")
+
+        //12364735
+        // console.log(1);
+        // async function a1() {
+        //     console.log(2);
+        //     await setTimeout(()=>{
+        //         console.log(3);
+        //     });
+        //     console.log(4);
+        // }
+        // a1();
+        // setTimeout(function () {
+        //     console.log(5)
+        // }, 0);
+        // new Promise(function (resolve) {
+        //     console.log(6);
+        //     resolve();
+        // }).then(function () {
+        //     console.log(7);
+        // })
+        // console.log("*******************")
+
+        //1267354
+        // console.log(1);
+        // async function a1() {
+        //     console.log(2);
+        //     await setTimeout(()=>{
+        //         console.log(3);
+        //     });
+        //     setTimeout(()=>{
+        //         console.log(4)
+        //     })
+        // }
+        // a1();
+        // setTimeout(function () {
+        //     console.log(5)
+        // }, 0);
+        // new Promise(function (resolve) {
+        //     console.log(6);
+        //     resolve();
+        // }).then(function () {
+        //     console.log(7);
+        // })
     </script>
 </body>
 

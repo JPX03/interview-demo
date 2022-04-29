@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>固定深度拍平数组</title>
+</head>
+
+<body>
+    <script>
+        let arr = [1, [2, 3], [4, [5]]];
+        function helper(arr, k) {
+            let temp = [];
+            if (k == 0) {
+                return arr;
+            }
+            for (const item of arr) {
+                if (item.constructor === Array) {
+                    temp = temp.concat(helper(item, k - 1));
+                } else {
+                    temp.push(item);
+                }
+            }
+            return temp;
+        }
+        let ans = helper(arr, 1);
+        console.log(ans)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+ 
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+</head>
+
+<body>
+    <script>
+        let arr = [2, 1, 4, 5, 6, 2, 8]
+
+        //快速排序
+        function quickSort(arr) {
+            if (arr.length <= 1) {
+                return arr;
+            }
+            let mid = Math.floor(arr.length / 2);
+            let temp = arr.splice(mid, 1);
+            let midVal = temp[0];
+            let left = [];
+            let right = [];
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] < midVal) {
+                    left.push(arr[i]);
+                } else {
+                    right.push(arr[i]);
+                }
+            }
+            return quickSort(left).concat(midVal, quickSort(right));
+        }
+
+
+        //选择排序
+        function selectionSort(arr) {
+            var len = arr.length;
+            var minIndex, temp;
+            for (var i = 0; i < len - 1; i++) {
+                minIndex = i;
+                for (var j = i + 1; j < len; j++) {
+                    if (arr[j] < arr[minIndex]) {     //寻找最小的数
+                        minIndex = j;                 //将最小数的索引保存
+                    }
+                }
+                temp = arr[i];
+                arr[i] = arr[minIndex];
+                arr[minIndex] = temp;
+            }
+            return arr;
+        }
+
+        //插入排序
+        function insertionSort(arr) {
+            for (var i = 1; i < array.length; i++) {
+                var key = array[i];
+                var j = i - 1;
+                while (j >= 0 && array[j] > key) {
+                    array[j + 1] = array[j];
+                    j--;
+                }
+                array[j + 1] = key;
+            }
+            return arr;
+        }
+        console.log(insertionSort(arr));
+
+        
+    </script>
+</body>
+
+</html>
