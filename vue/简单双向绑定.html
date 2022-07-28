@@ -24,10 +24,8 @@
             },
             set: (val) => {
                 name = val;
+                inp.value = val;
                 box.innerHTML = val;
-                if (inp.value != val) {
-                    inp.value = val;
-                }
             }
         })
 

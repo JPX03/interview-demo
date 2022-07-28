@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设计模式</title>
+</head>
+
+<body>
+    <script>
+        //1、单例模式，每次new出来的都是同一个对象
+        console.log('单例模式*******************************');
+        let singleton = null;
+        function Person() {
+            if (singleton) {
+                return singleton;
+            }
+            this.name = 'jpx';
+            singleton = this;
+            return singleton;
+        }
+        const person1 = new Person();
+        const person2 = new Person();
+        console.log(person1 === person2);
+
+        //2、工厂模式,不需要指定具体的类或构造函数，创建具有共同点的对象，{
+        console.log('工厂模式********************************');
+        class Animal {
+            constructor(args) {
+                this.name = args.name;
+                this.age = args.age;
+            }
+            say() {
+                console.log(`I am ${this.name}`);
+            }
+        }
+        const cat = new Animal({ name: 'cat', age: '1' });
+        const dog = new Animal({ name: 'dog', age: '2' });
+        console.log('cat', cat);
+        console.log('dog', dog);
+        cat.say();
+
+
+        //3、装饰器模式，无需修改现有的类或构造函数就可以扩展功能
+        console.log('装饰器模式******************************');
+        class Computer {
+            constructor() {
+                this.cost = 5000;
+            }
+        }
+
+        function add(computer) {
+            computer.cost = computer.cost + 500;
+        }
+
+        const computer = new Computer();
+        add(computer);
+        console.log('a', computer);
+
+        //4、发布订阅模式
+        console.log('发布订阅模式*****************************');
+        class EventEmitter {
+            constructor() {
+                this._events = {};
+            }
+
+            on(eventName, callback) {
+                if (!this._events[eventName]) {
+                    this._events[eventName] = [];
+                }
+                this._events[eventName].push(callback);
+            }
+
+            emit(eventName, ...args) {
+                if (!this._events[eventName]) {
+                    return;
+                }
+                this._events[eventName].forEach((item) => { item(...args) });
+            }
+
+            off(eventName, callback) {
+                if (!this._events[eventName]) {
+                    return;
+                }
+                if (!callback) {
+                    delete this._events[eventName];
+                    return;
+                }
+                this._events[eventName] = this._events[eventName].filter(item => item !== callback);
+            }
+
+            once(eventName, callback) {
+                const newCallback = (...args) => {
+                    callback(...args);
+                    this.off(eventName, newCallback);
+                }
+                newCallback.flag = callback;
+                this.on(eventName, newCallback)
+            }
+        }
+
+        let eventEmitter = new EventEmitter();
+        function fn1() {
+            console.log('click');
+        }
+        function fn2() {
+            console.log('move');
+        }
+        eventEmitter.on('click', fn1);
+        console.log('订阅click之后', eventEmitter);
+        eventEmitter.emit('click');
+        console.log('触发click之后', eventEmitter);
+        eventEmitter.off('click', fn1);
+        console.log('取消订阅click之后', eventEmitter);
+        eventEmitter.emit('click');
+        eventEmitter.once('move', fn2)
+        console.log('订阅一次move之后', eventEmitter);
+        eventEmitter.emit('move');
+        console.log('触发move之后', eventEmitter);
+    </script>
+</body>
+
+</html>

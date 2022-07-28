@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成虚拟dom</title>
+</head>
+
+<body>
+    <div id="container">
+        <div id="box1"></div>
+        <div id="box2">
+            <div id="box3"></div>
+            <div id="box4"></div>
+        </div>
+    </div>
+    <script>
+        let container = document.getElementById('container');
+        function createVirtualDom(node) {
+            let obj = {};
+            if (node.nodeType == 1) {
+                obj['id'] = node.id;
+                obj['tagName'] = node.tagName;
+                if (node.children.length != 0) {
+                    obj['children'] = [];
+                    for (const item of node.children) {
+                        obj['children'].push(createVirtualDom(item));
+                    }
+                }
+            }
+            return obj;
+        }
+        console.log(createVirtualDom(container));
+    </script>
+</body>
+
+</html>

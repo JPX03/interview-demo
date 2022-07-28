@@ -1,5 +1,5 @@
 <!DOCTYPE html>
- 
+
 
 <head>
     <meta charset="UTF-8">
@@ -13,10 +13,10 @@
         let arr = [1, 1, 2, 2, 3, 3, 3, 4, 5, 6, 7, 7]
 
         //splice
-        function helper1(arr) {
+        const helper1 = (arr) => {
             for (let i = 0; i < arr.length - 1; i++) {
                 for (let j = i + 1; j < arr.length; j++) {
-                    if (arr[j] === arr[i]) {
+                    if (arr[i] === arr[j]) {
                         arr.splice(j, 1);
                         j--;
                     }
@@ -27,20 +27,21 @@
 
         //indexof
         function helper2(arr) {
-            let temp = [];
+            const temp = [];
             for (let i = 0; i < arr.length; i++) {
-                if (temp.indexOf(arr[i]) === -1) {
+                if (temp.indexOf(arr[i]) == -1) {
                     temp.push(arr[i]);
                 }
             }
             return temp;
         }
 
+
         //set去重
         function helper3(arr) {
             return Array.from(new Set(arr));
         }
-        console.log(helper3(arr));
+        console.log(helper2(arr));
     </script>
 </body>
 

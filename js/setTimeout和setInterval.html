@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>setTimeout和setInterval</title>
+</head>
+
+<body>
+    <script>
+        const mySetInterval = (fn, time) => {
+            let timer = null;
+            const interval = () => {
+                fn();
+                timer = setTimeout(
+                    interval, time
+                );
+            }
+            setTimeout(interval(), time);
+            return {
+                myClear: () => {
+                    clearTimeout(timer);
+                }
+            }
+        }
+        const { myClear } = mySetInterval(() => { console.log('mySetInterval') }, 1500);
+        setTimeout(() => {
+            myClear();
+        }, 6000);
+
+        const mySetTimeout = (fn, time) => {
+            const timer = setInterval(() => {
+                fn();
+                clearInterval(timer);
+            })
+        }
+        mySetTimeout(() => { console.log('mySetTimeout') }, 1500);
+    </script>
+</body>
+
+</html>

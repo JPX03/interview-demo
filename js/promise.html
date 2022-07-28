@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>test</title>
+</head>
+
+<body>
+  <script>
+    //简单使用
+    // const fn1 = () =>
+    //   new Promise(function (resolve, reject) {
+    //     setTimeout(function () {
+    //       console.log('执行了fn1,并返回a')
+    //       resolve("a");
+    //     }, 1000);
+    //   });
+
+    // const fn2 = (data) =>
+    //   new Promise(function (resolve, reject) {
+    //     console.log(`接收到了fn1的返回值${data}`, '执行了fn2,并返回b')
+    //     resolve("b");
+    //   });
+
+    // fn1()
+    //   .then(function (data) {
+    //     return fn2(data);
+    //   })
+    //   .then(function (data) {
+    //     console.log(`接受到fn2的返回值${data}`);
+    //   });
+
+    //实现一个promise
+    class MyPromise {
+      constructor(executor) {
+        this.status = 'pending';
+        this.value = undefined;
+        this.reason = undefined;
+        this.onResolvedCallbacks = [];
+        this.onRejectedCallbacks = [];
+
+        const resolve = (value) => {
+          if (this.status === 'pending') {
+            this.status = 'fulfilled';
+            this.value = value;
+            while (this.onResolvedCallbacks.length) {
+              this.onResolvedCallbacks.shift()();
+            }
+          }
+        }
+
+        const reject = (reason) => {
+          if (this.status === 'pending') {
+            this.status = 'rejected';
+            this.reason = reason;
+            while (this.onRejectedCallbacks.length) {
+              this.onRejectedCallbacks.shift()();
+            }
+          }
+        }
+
+        try {
+          executor(resolve, reject)
+        } catch (err) {
+          reject(err);
+        }
+      }
+
+      then(onFulfilled, onRejected) {
+        return new MyPromise((resolve, reject) => {
+          if (this.status === 'pending') {
+            this.onResolvedCallbacks.push(() => { onFulfilled(this.value) });
+            this.onRejectedCallbacks.push(() => { onRejected(this.reason) });
+          }
+          if (this.status === 'fulfilled') {
+            onFulfilled(this.value);
+          }
+          if (this.status === 'rejected') {
+            onRejected(this.reason);
+          }
+        })
+      }
+
+      all(arr) {
+        return new MyPromise((resolve, reject) => {
+          let result = [];
+          let count = 0;
+          arr.forEach(async (promise, index) => {
+            result[index] = await promise().catch((err) => {
+              reject(err);
+            })
+          });
+          count++;
+          if (count == arr.length) {
+            resolve(result);
+          }
+        })
+      }
+    }
+
+    const p1 = new MyPromise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('1');
+      }, 1000)
+    })
+    p1.then(val => { console.log(val) }, err => console.log(err))
+
+  </script>
+</body>
+
+</html>

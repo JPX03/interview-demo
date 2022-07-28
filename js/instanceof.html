@@ -1,5 +1,5 @@
 <!DOCTYPE html>
- 
+
 
 <head>
     <meta charset="UTF-8">
@@ -11,23 +11,24 @@
 <body>
     <script>
         let arr = [];
-        function _instanceof(left, right) {
-            let rPro = right.prototype;
+        const myInstanceof = (left, right) => {
+            const rPro = right.prototype;
             left = left.__proto__;
             while (true) {
+                if (rPro === left) {
+                    return true;
+                }
                 if (left === null) {
                     return false;
-                }
-                if (left === rPro) {
-                    return true;
                 }
                 left = left.__proto__;
             }
         }
 
         console.log(arr.constructor === Array);
-        console.log(Object.prototype.toString.call(_instanceof));
-        console.log(_instanceof(arr, Array));
+        console.log(Object.prototype.toString.call(myInstanceof));
+        console.log(arr instanceof Array);
+        console.log(myInstanceof(arr, Array));
     </script>
 </body>
 

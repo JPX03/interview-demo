@@ -1,5 +1,5 @@
 <!DOCTYPE html>
- 
+
 
 <head>
     <meta charset="UTF-8">
@@ -10,10 +10,9 @@
 
 <body>
     <script>
-
         function Foo() {
             var i = 0;
-            return function () {
+            return () => {
                 console.log(i++);
             }
         }

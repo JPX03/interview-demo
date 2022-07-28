@@ -31,18 +31,18 @@
         console.log(obj);
         console.log(obj2);
 
-        //递归
-        function deepClone1(obj) {
+        //深拷贝
+        const deepClone1 = (obj) => {
             let temp = {};
-            for (let item in obj) {
-                if (obj[item] === temp) {
+            for (let key in obj) {
+                if (obj[key] === temp) {
                     continue;
                 }
-                if (typeof (obj[item]) === 'object') {
-                    temp[item] = obj[item].constructor === Array ? [] : {};
-                    deepClone1(obj[item]);
+                if (typeof (obj[key] === 'object')) {
+                    temp[key] = obj[key].constructor === Array ? [] : {};
+                    deepClone1(obj[key]);
                 } else {
-                    temp[item] = obj[item];
+                    temp[key] = obj[key];
                 }
             }
             return temp;
@@ -50,8 +50,8 @@
         let obj3 = deepClone1(obj);
         obj3.a = 2;
         obj3.b.c = 3;
-        console.log(obj);
-        console.log(obj3);
+        console.log(obj,'1');
+        console.log(obj3,'1');
 
         //object.create
         function deepClone2(obj) {

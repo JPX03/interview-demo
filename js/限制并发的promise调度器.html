@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>限制并发的promise调度器</title>
+</head>
+
+<body>
+    <script>
+        class Scheduler {
+            constructor(limit) {
+                this.limit = limit;
+                this.task = [];
+                this.count = 0;
+            }
+
+            add(time, order) {
+                const promiseCreator = () => {
+                    return new Promise((resolve, reject) => {
+                        setTimeout(() => {
+                            console.log(order);
+                            resolve();
+                        }, time)
+                    })
+                }
+                this.task.push(promiseCreator);
+            }
+
+            request() {
+                if (!this.task.length || this.count >= this.limit) {
+                    return;
+                }
+                this.count++;
+                this.task.shift()().then(() => {
+                    this.count--;
+                    this.request();
+                })
+            }
+
+            start() {
+                for (let i = 0; i < this.limit; i++) {
+                    this.request();
+                }
+            }
+        }
+
+        const scheduler = new Scheduler(2);
+        scheduler.add(1000, '1');
+        scheduler.add(500, '2');
+        scheduler.add(300, '3');
+        scheduler.add(400, '4');
+        scheduler.start();
+    </script>
+</body>
+
+</html>

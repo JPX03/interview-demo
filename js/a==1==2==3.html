@@ -1,5 +1,5 @@
 <!DOCTYPE html>
- 
+
 
 <head>
     <meta charset="UTF-8">
@@ -11,11 +11,8 @@
 <body>
     <script>
         let a = {
-            i: 0,
-            valueOf: function () {
-                this.i++;
-                return this.i;
-            },
+            i: 1,
+            toString: () => a.i++
         }
         console.log(a == 1 && a == 2 && a == 3);
     </script>

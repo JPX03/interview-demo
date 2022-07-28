@@ -12,9 +12,6 @@
     <button id="btn2">throttle</button>
 
     <script>
-        document.getElementById('btn1').addEventListener('click', debounce(fun1, 1000));
-        document.getElementById('btn2').addEventListener('click', throttle(fun2, 1000));
-
         function fun1() {
             console.log('防抖')
         }
@@ -23,20 +20,19 @@
             console.log('节流')
         }
 
-        function debounce(fn, time) {
-            let timeout = null;
-            return function () {
-                clearTimeout(timeout);
-                timeout = setTimeout(() => {
+        const debounce = (fn, time) => {
+            let timer = null;
+            return () => {
+                clearTimeout(timer);
+                flag = setTimeout(() => {
                     fn();
                 }, time)
             }
         }
 
-
-        function throttle(fn, time) {
+        const throttle = (fn, time) => {
             let flag = true;
-            return function () {
+            return () => {
                 if (!flag) {
                     return;
                 }
@@ -44,9 +40,12 @@
                 setTimeout(() => {
                     fn();
                     flag = true;
-                }, time)
+                }, time);
             }
         }
+
+        document.getElementById('btn1').addEventListener('click', debounce(fun1, 1000));
+        document.getElementById('btn2').addEventListener('click', throttle(fun2, 1000));
     </script>
 
 </body>
